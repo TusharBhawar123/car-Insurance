@@ -24,4 +24,5 @@ public class CarController {
     public ResponseEntity<Car> getCarById(@PathVariable Long id) {
         return ResponseEntity.ok(carService.getCarById(id));
     }
+
 }
