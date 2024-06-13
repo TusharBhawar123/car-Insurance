@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.coyote.ProtocolHandler;
 
 @Entity
 @Data
@@ -27,14 +26,6 @@ public class Car {
     private String carName;
     private String carType;
     private String carColor;
-
-//    @ManyToOne
-//    @JsonManagedReference
-//    @JoinColumn(
-//            name = "User",
-//            referencedColumnName = "userId"
-//    )
-//    private User user;
 
     @OneToOne(
             cascade = CascadeType.ALL,

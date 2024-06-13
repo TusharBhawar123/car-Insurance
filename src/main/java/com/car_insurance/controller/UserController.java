@@ -17,8 +17,14 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> saveUser(@RequestBody User user) {
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+    public ResponseEntity<String> saveUser(@RequestBody User user) {
+        try {
+            this.userService.saveUser(user);
+            return ResponseEntity.ok("User Added Successfully");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 
     @GetMapping
@@ -27,15 +33,33 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@RequestBody User user,@PathVariable Long id) {
+    public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Long id) {
         user.setUserId(id);
         return ResponseEntity.ok(this.userService.updateUser(user,id));
     }
 
     @DeleteMapping("/{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public String deleteUser(@PathVariable Long id) {
         ResponseEntity<Object> responseEntity=new ResponseEntity<>(HttpStatus.NO_CONTENT);
         this.userService.deleteById(id);
         System.out.println(responseEntity);
+        return "User Successfully Deleted";
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(this.userService.findById(id));
+    }
+
+    @GetMapping("/firstname/{firstName}")
+    public List<User> findByUserFirstName(@PathVariable String firstName,@RequestBody User user) {
+        return this.userService.findByUserFirstName(firstName);
+    }
+    
+    @GetMapping("/LastName/{lastName}")
+    public List<User> findByUserLastName(@PathVariable String lastName,@RequestBody User user){
+        return this.userService.findByUserLastName(lastName);
+    }
+
+
 }

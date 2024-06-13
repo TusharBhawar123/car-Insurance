@@ -1,5 +1,6 @@
 package com.car_insurance.repository;
 
+import com.car_insurance.ExceptionHandler.UserAlreadyDeleted;
 import com.car_insurance.entity.Car;
 import com.car_insurance.entity.Insurance;
 import com.car_insurance.entity.User;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
